@@ -1,0 +1,46 @@
+<nav class="navbar">
+	<div class="logo">
+		<!-- <img
+			src="https://upload.wikimedia.org/wikipedia/commons/2/23/AS_sample_logo.png"
+			alt="LOGO"
+		/> -->
+		<h2><a class="text-decoration-none text-danger" href="/">OCHAN</a></h2>
+	</div>
+	<div class="push-left">
+		<button id="menu-toggler" data-class="menu-active" class="hamburger">
+			<span class="hamburger-line hamburger-line-top"></span>
+			<span class="hamburger-line hamburger-line-middle"></span>
+			<span class="hamburger-line hamburger-line-bottom"></span>
+		</button>
+
+		<!--  Menu compatible with wp_nav_menu  -->
+		<ul id="primary-menu" class="menu nav-menu">
+			<% if (isLoggedIn) { %>
+			<li class="menu-item current-menu-item">
+				<a class="nav__link" href="/dashboard">Dashboard</a>
+			</li>
+			<li class="menu-item current-menu-item">
+				<a class="nav__link" href="/logout">Logout</a>
+			</li>
+			<% } else { %>
+			<li class="menu-item dropdown">
+				<a class="nav__link" href="/signup">Signup</a>
+			</li>
+			<li class="menu-item dropdown">
+				<a class="nav__link" href="/login">Login</a>
+			</li>
+			<% } %>
+
+			<form class="form-inline pb-0 input-group">
+				<input type="text" class="form-control p-0 search" />
+				<div class="input-group-append">
+					<input
+						type="submit"
+						value="submit"
+						class="btn btn-outline-secondary"
+					/>
+				</div>
+			</form>
+		</ul>
+	</div>
+</nav>
