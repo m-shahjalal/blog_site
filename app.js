@@ -5,14 +5,16 @@ const chalk = require('chalk')
 const config = require('config')
 const routes = require('./routes')
 const middleware = require('./middleware')
+const errors = require('./routes/error')
 
 const app = express()
+app.set('view engine', 'ejs')
+app.set('views', 'views')
+
 //middleware and routes
 middleware(app)
 routes(app)
-
-app.set('view engine', 'ejs')
-app.set('views', 'views')
+errors(app)
 
 mongoose
 	.connect(require('./utils/db-url'), {

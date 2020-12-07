@@ -32,22 +32,18 @@ exports.signupPost = async (req, res, next) => {
 	try {
 		const bcryptPass = await bcrypt.hash(password, 10)
 		const user = new User({ name, email, password: bcryptPass })
-		const createdUser = await user.save()
-		console.log('This is created user >>>', createdUser)
+		await user.save()
 		req.flash('success', 'User created successfully. Please log in here!')
 		res.redirect('/login')
 	} catch (error) {
-		console.log(error)
 		next(error)
 	}
 }
 
-exports.loginGet = (req, res, next) => {
-	console.log(Flash.getMessage(req))
+exports.loginGet = (req, res) => {
 	if (req.session.isLoggedIn) {
 		return res.redirect('/dashboard')
 	}
-	console.log(req.session)
 	res.render('pages/auth/login', {
 		title: 'Login to your account',
 		error: '',
@@ -81,7 +77,6 @@ exports.loginPost = async (req, res, next) => {
 			req.session.user = user
 			req.session.save((e) => {
 				if (e) {
-					console.log(e)
 					return next(e)
 				}
 				req.flash('success', 'Login successfully, Now Enjoy yourself!!')
@@ -89,7 +84,6 @@ exports.loginPost = async (req, res, next) => {
 			})
 		}
 	} catch (e) {
-		console.log(e)
 		next(e)
 	}
 }
@@ -97,7 +91,6 @@ exports.loginPost = async (req, res, next) => {
 exports.logout = (req, res, next) => {
 	req.session.destroy((e) => {
 		if (e) {
-			console.log(e)
 			return next(e)
 		}
 		res.redirect('/login')
